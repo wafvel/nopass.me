@@ -1,10 +1,13 @@
 node_modules/
 .DS_Store
+.env
 .env.*
 _data
+.vscode
 
 # Serverless directories
 .serverless
 .webpack
 .dynamodb
-report.*.json
+report.*.json                   
+dynamodb

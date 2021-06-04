@@ -37,6 +37,32 @@ This is a light alternative to some other (more expensive) services such as Auth
 
 The very purpose of [NoPass.me](https://nopass.me) is to make sure that a user claiming to be i.e jane.doe@bigcorp.com actually has physical access to that email address. You still have to make sure they are allowed to do what they want to do, but at least you can confidently say that: yes, they are indeed Jane Doe from BigCorp, or someone who has access to their mailbox!
 
+## 💬 Validate Whatsapp Number
+
+Now you can send unique one-time passwords to any whatsapp number thanks to whatsapp API from wafvel.com
+
+![](images/wafvel-demo.png)
+
+#### Example Request
+
+```json
+// on init endpoint
+{
+  "target": "+628123000123",
+  "target_type": "whatsapp",
+  "content": "*Hello 👋*\n\nYour authentication code is *%code%*\n\nDo not share this to others,\nStay safe on the internet! \n\nOTP Service by wafvel.com",
+  "expires_in": 300
+}
+
+// on validate endpoint
+{
+  "target": "+628123000123",
+  "target_type": "whatsapp",
+  "code": 727766
+}
+```
+
+
 ## 🤖 Perfect Match For Chatbots
 
 [NoPass.me](https://nopass.me) was specifically designed to authentify chatbot users. In most publicly accessible chatbots, there is no way to ensure that a user is actually who they say they are. Using this solution, you can now seamlessly validate a user's identity and proceed to securely give them access to restricted resources!
@@ -85,6 +111,11 @@ npm start
 The api will run on http://localhost:3600 (this can be configured in the [serverless.yml file](./serverless.yml)).
 
 It can be used with [dynamodblocal](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html). Simply launch dynamodb and configure the host/port accordingly in the .env.local file.
+
+or with docker-compose run :
+```sh
+docker-compose up
+```
 
 > Note: in local mode, emails are not actually sent out, but printed in the console. 
 
