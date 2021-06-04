@@ -7,6 +7,7 @@ import {
   hash,
 } from '../helpers';
 import EmailService from '../services/email.service';
+import WafvelService from '../services/wafvel.service';
 
 const { DEBUG } = process.env;
 
@@ -62,9 +63,17 @@ export default class VerifyController {
       /**
        * For now, only `email` target_type is supported
        */
-      if (target_type === 'email') await EmailService.sendEmail(target, subject, text);
+      if (target_type === 'email') {
+        await EmailService.sendEmail(target, subject, text);
+        return { success: true };
+      }
 
-      return { success: true };
+      /**
+       * For sending to whatsapp number, using API from wafvel.com
+       */
+      if (target_type === 'whatsapp') {
+        return WafvelService.sendWhatsapp(target, text);
+      }
 
     }
     catch (err) {
